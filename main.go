@@ -56,7 +56,7 @@ func flood(target string, port int, duration int, wg *sync.WaitGroup) {
 	for time.Now().Before(endTime) {
 		_, err := conn.Write(payload)
 		if err != nil {
-			log.Println("Error writing to UDP connection:", err)
+			log.Println("Error writing to UDP connectiion:", err)
 			continue
 		}
 	}
